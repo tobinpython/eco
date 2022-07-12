@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block metadescripation %}
+    {% if category %}
+        {{category.description|truncatewords:155}}
+    {% else %}
+         Welcome to TR store where you can buys different items...
+    {% endif %}
+{% endblock %}
+
+{% block title %}
+    {% if category %}
+        {{ category.name }} -TR store
+    {% else %}
+     See Our new collection -TR store
+    {% endif %}
+{% endblock %}
+
+
+{% block content %}
+{% if category %}
+
+
+<div>
+    <div>
+        <p><a href="{% url 'shopapp:allProdcat' %}">Our product Collections</a></p>
+    </div>
+</div>
+    {% endif %}
+<div>
+        {% if category %}
+        <img src="{{category.img.url}}" alt="{{category.name}}">
+</div>
+    <br>
+<div>
+        <h1>{{category.name}}</h1>
+        <P>{{category.description}}</P>
+</div>
+    {% else %}
+
+<div>
+     <img src="{% static 'img/bannr.jpg' %}" alt="Our products" width="1200px"; height=550";>
+</div>
+<br>
+
+<div>
+      <h1> Our products collection</h1>
+       <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable.</p>
+</div>
+       {% endif %}
+
+    <div class="container">
+        <div class="row mx_auto">
+            {% for product in products %}
+            <div class="my_bottom_margin col-9  col-sm-12  col-md-4  xol-lg-4">
+                <div class="card text-center" style="min-width:18rem;" height="400px">
+                    <a href="{{product.get_url}}"><img class="card-img-top my_image" style=width:"300px" height="300px" src="{{product.img.url}}" alt='image'></a>
+                </div>
+                    <h2>{{product.name}}</h2>
+                    <p>{{product.price}}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+
+        <br>
+    </div>
+{% endblock %}
